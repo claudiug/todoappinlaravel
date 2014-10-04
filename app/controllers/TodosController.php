@@ -7,12 +7,11 @@ class TodosController extends \BaseController
     {
         $query = Input::get('q');
         if ($query){
-            $todos = Todo::where('title', 'LIKE', "%$query%")->get();
-            return View::make('todos.index', ['todos' => $todos]);
+            $todos = Todo::where('title', 'LIKE', "%$query%")->orderBy('created_at', 'desc')->get();
         } else {
             $todos = Todo::all();
-            return View::make('todos.index', ['todos' => $todos]);
         }
+        return View::make('todos.index', ['todos' => $todos]);
     }
 
     public function create()
